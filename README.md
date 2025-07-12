@@ -65,9 +65,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 Detailed API documentation is available via Swagger UI. Once the server is running, you can access it at:
 
-<<<<<<< HEAD
 *   `http://localhost:3000/docs`
-=======
 *   `GET /:shortId` - Redirect to the original URL.
 
 ### Private Endpoints
@@ -81,7 +79,6 @@ Detailed API documentation is available via Swagger UI. Once the server is runni
 ### URL Shortening
 
 *   `POST /api/shortener` - Shorten a new URL (Authentication required).
->>>>>>> 0e4e225f1ba46fab15a6906661ca5522409f0063
 
 ## Technologies Used
 
