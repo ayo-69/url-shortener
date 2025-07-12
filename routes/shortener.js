@@ -7,6 +7,35 @@ const auth = require("../middleware/auth");
 require("dotenv").config();
 
 // Shortens a URL
+/**
+ * @swagger
+ * /shorten:
+ *   post:
+ *     summary: Shorten a URL
+ *     tags: [URLs]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               URL:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Shortened URL already exists
+ *       201:
+ *         description: Successfully shortened URL
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
 router.post("/shorten", auth, async (req, res) => {
     const { error } = shortenerSchema.validate(req.body);
 
@@ -45,7 +74,34 @@ router.post("/shorten", auth, async (req, res) => {
     }
 });
 
-// GET / - Get all user URLs
+// GET / - Get all URLs a user 
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Get all of a user's URLs
+ *     tags: [URLs]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of URLs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 urls:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/URL'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: No URLs found
+ *       500:
+ *         description: Server error
+ */
 router.get("/", auth, async (req, res) => {
     try {
         const urls = await URL.findOne({ user: req.user.id });
@@ -62,6 +118,28 @@ router.get("/", auth, async (req, res) => {
 });
 
 // GET /:key
+// Shortens a URL
+/**
+ * @swagger
+ * /{hashedURL}:
+ *   get:
+ *     summary: Redirect to the original URL
+ *     tags: [URLs]
+ *     parameters:
+ *       - in: path
+ *         name: hashedURL
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The shortened URL hash
+ *     responses:
+ *       302:
+ *         description: Redirecting to original URL
+ *       404:
+ *         description: No URL found
+ *       500:
+ *         description: Server error
+ */
 router.get("/:hashedURL", async (req, res) => {
     try {
         const url = await URL.findOne({ shortUrl: req.params.hashedURL });

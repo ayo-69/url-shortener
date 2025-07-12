@@ -61,23 +61,11 @@ These instructions will get you a copy of the project up and running on your loc
 
     The server will start on `http://localhost:3000`.
 
-## API Endpoints
+## API Documentation
 
-### Public Endpoints
+Detailed API documentation is available via Swagger UI. Once the server is running, you can access it at:
 
-*   `GET /:shortId` - Redirect to the original URL.
-
-### Private Endpoints
-*   `GET /` - Returns all urls for the user(protected auth endpoint).
-
-### Authentication
-
-*   `POST /api/auth/signup` - Register a new user.
-*   `POST /api/auth/login` - Login an existing user.
-
-### URL Shortening
-
-*   `POST /api/shortener` - Shorten a new URL (Authentication required).
+*   `http://localhost:3000/docs`
 
 ## Technologies Used
 

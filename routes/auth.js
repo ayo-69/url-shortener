@@ -5,7 +5,35 @@ const { registerSchema, loginSchema } = require("../utils/validationSchemas");
 const User = require("../models/User");
 const router = express.Router();
 
-// POST /auth/register
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *       400:
+ *         description: Bad request
+ *       409:
+ *         description: User already exists
+ *       500:
+ *         description: Internal server error
+ */
 router.post("/register", async (req, res) => {
     try {
         const { error } = registerSchema.validate(req.body);
@@ -32,6 +60,38 @@ router.post("/register", async (req, res) => {
 });
 
 // POST /auth/login
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Login an existing user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User logged in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *       400:
+ *         description: Invalid credentials
+ *       500:
+ *         description: Internal server error
+ */
 router.post("/login", async (req, res) => {
     try {
         const { error } = loginSchema.validate(req.body);
