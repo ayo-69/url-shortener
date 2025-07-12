@@ -1,24 +1,16 @@
-const { createClient } = require("redis");
-require("dotenv").config();
+const mongoose = require("mongoose");
 
-const client = createClient({
-    url: process.env.REDIS_URL
-})
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URL);
+        console.log("MongoDB connected");
+    } catch (err) {
+        console.log("Failed to connect to MongoDB ")
+        console.log("====================================")
+        console.error(err.message);
+        process.exit(1);
+    }
+};
 
-client.on("error", (err) => console.error("REDIS Error : ", err));
+module.exports = connectDB;
 
-async function connectClient() {
-    await client.connect();
-    console.log("Connected to REDIS")
-}
-
-async function disconnectClient() {
-    await client.disconnectClient();
-    console.log("Disconnected to REDIS")
-}
-
-module.exports = {
-    client,
-    connectClient,
-    disconnectClient
-}
