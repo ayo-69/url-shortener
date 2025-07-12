@@ -72,8 +72,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Authentication
 
-*   `POST /api/auth/signup` - Register a new user.
-*   `POST /api/auth/login` - Login an existing user.
+*   `POST /auth/signup` - Register a new user.
+*   `POST /auth/login` - Login an existing user.
 
 ### URL Shortening
 
