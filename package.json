@@ -1,7 +1,6 @@
 {
   "name": "url-shortener",
   "module": "index.ts",
-  "type": "module",
   "private": true,
   "scripts": {
     "start": "node index"
